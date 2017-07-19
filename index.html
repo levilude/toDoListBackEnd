@@ -1,0 +1,46 @@
+<html ng-app='listas'>
+<head>
+  <meta charset="UTF-8" />
+  <title>Listas</title>
+
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="js/controllers/listasCtrl.js"></script>
+  <script src="js/controllers/tarefasCtrl.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/app.css">
+
+</head>
+
+<body ng-controller="listasCtrl">
+    <div class="jumbotron">
+        <h3>Listas de Tarefas</h3>
+        <hr class="marginList">
+
+        <div class="text-left">
+            <div class="margin" ng-repeat="list in todos | filter:search:strict">
+                <div class="row">
+                    <div class="col-xs-10" >
+                        <a href="tarefas.html?list.text=$scope.list.text">{{ list.text }}</a>
+                    </div>
+                    <div class="col-xs-1">
+                       <a ng-click="edit(list, $index)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    </div>
+                    <div class="col-xs-1">
+                        <a ng-click="delete(list, $index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                    </div>
+              </div>
+            </div>
+        </div>
+
+        <form class="input-group" ng-submit="save()">
+            <input type="text" class="form-control" ng-model="listName" placeholder="Nova lista">
+            <div class="input-group-btn">
+                <input type="hidden" ng-model="index" value="">
+                <input class="btn btn-primary " type="submit" value="Salvar">
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<html ng-app='tarefas'>
+<head>
+    <meta charset="UTF-8" />
+    <title>todoList</title>
+
+    <script src="lib/angular/angular.min.js"></script>
+
+    <script src="js/controllers/listasCtrl.js"></script>
+    <script src="js/controllers/tarefasCtrl.js"></script>
+    <script src="js/services/tasksAPIService.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+
+<body ng-controller="tarefasCtrl">
+    <div class="jumbotron">
+
+        <div class="row">
+            <div class="col-xs-1" >
+                <a  href="index.html"><span class="glyphicon glyphicon-menu-left"></span></a>
+              </div>
+            <div class="col-xs-10" >
+                <h3>Tarefas</h3>
+            </div>
+        </div>
+
+        <input class="form-control margin" type="search" ng-model="search.text" placeholder="Buscar">
+        <form class="form-inline">
+            <div class="margin">Tarefeas à realizar: {{ remaining() }} de {{ tasks.length }}
+                <button class="btn btn-danger" ng-click="clear()">Limpar</button>
+            </div>
+        </form>
+
+        <div class="text-left">
+            <div class="margin" ng-repeat="task in tasks | filter:search:strict">
+              <div class="row">
+                  <div class="col-xs-10" >
+                      <input  type="checkbox" ng-model="task.done"> -
+                      <span class="done done-{{ task.done }}">{{ task.text }}</span>
+                  </div>
+                  <div class="col-xs-2">
+                      <a ng-click="edit(task, $index)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+        <form class="input-group" ng-submit="save(task)">
+            <input type="text" class="form-control" ng-model="task.text" placeholder="Nova tarefa" required>
+            <div class="input-group-btn">
+                <input type="hidden" ng-model="task.done" value="false">
+                <input type="hidden" ng-model="index" value="">
+                <input class="btn btn-primary " type="submit" value="Salvar"> 
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>
+
